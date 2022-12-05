@@ -208,14 +208,11 @@ def createMatrix2(h, l):
 
 
 def total(numbers):
-    total = 0
-    for n in numbers:
-        total += n
-    return total
+    return sum(numbers)
 
 
 def mean(numbers):
-    return total(numbers) / len(numbers)
+    return sum(numbers) / len(numbers)
 
 
 def median(numbers):
