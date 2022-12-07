@@ -243,4 +243,5 @@ def onQuit():
             return False
         deleteLastLine()
 
-
+def test():
+    print("test")
