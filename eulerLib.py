@@ -120,11 +120,11 @@ def stringToIntList(x):
     return ret
 
 
-def givePrimes(rang):
+def givePrimes(rang, start=8):
     prim = [2, 3, 5, 7]
     state = False
     i = 0
-    for n in range(8, rang):
+    for n in range(start, rang):
         for m in range(2, math.floor(n / 2) + 1):
             if n % m == 0:
                 state = True
@@ -140,7 +140,7 @@ def givePrimes(rang):
 
 def isPrim(x):
     state = False
-    for m in range(2, x):
+    for m in range(2, int(x / 2) + 1):
         if x % m == 0:
             state = True
     if not state:
@@ -242,5 +242,3 @@ def onQuit():
             deleteLastLine()
             return False
         deleteLastLine()
-
-
