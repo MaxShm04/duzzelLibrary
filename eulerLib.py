@@ -1,6 +1,7 @@
 import math
 import random
 from getpass import getpass
+from datetime import datetime
 
 
 def properDivisors(x):
@@ -120,33 +121,31 @@ def stringToIntList(x):
     return ret
 
 
-def givePrimes(rang, start=8):
-    prim = [2, 3, 5, 7]
-    state = False
-    i = 0
-    for n in range(start, rang):
-        for m in range(2, math.floor(n / 2) + 1):
-            if n % m == 0:
-                state = True
-        if not state:
-            prim.append(n)
-            i += 1
-            if i == 1000:
-                print(n)
-                i = 0
-        state = False
-    return prim
-
-
 def isPrim(x):
     state = False
     for m in range(2, int(x / 2) + 1):
         if x % m == 0:
-            state = True
-    if not state:
-        return True
-    return False
+            return False
+    return True
 
+
+def givePrimes(rang, start=8):
+    '''
+    [start, rang]
+    :param rang: rang incl
+    :param start: start min 8
+    :return: list
+    '''
+    if start>8:
+        prim = []
+    else:
+        prim = [2, 3, 5, 7]
+    state = False
+    i = 0
+    for n in range(start, rang+1):
+        if isPrim(n):
+            prim.append(n)
+    return prim
 
 def NumbToBin(x, l=8):
     return f'{x:0{l}b}'
