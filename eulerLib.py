@@ -4,6 +4,11 @@ from getpass import getpass
 from datetime import datetime
 
 
+def sum_of_numbers(strt, end):
+    return int(((end-strt+1)*(strt+end))/2)
+
+print(sum_of_numbers(-3, 4))
+
 def properDivisors(x):
     ret = []
     for n in range(1, x):
@@ -130,12 +135,6 @@ def isPrim(x):
 
 
 def givePrimes(rang, start=0):
-    '''
-    [start, rang]
-    :param rang: rang incl
-    :param start: start min 8
-    :return: list
-    '''
     if start > rang:
         raise ValueError("Invalid range")
     if start == rang:
@@ -155,7 +154,7 @@ def givePrimes(rang, start=0):
     return prim
 
 
-def NumbToBin(x, l=8):
+def int_to_bin(x, l=8):
     return f'{x:0{l}b}'
 
 
@@ -206,11 +205,11 @@ def matrToText(data):
     return out
 
 
-def createMatrix(h, l, ran=10):
+def create_random_matrix(h, l, ran=10):
     return [[random.randint(0, ran) for n in range(l)] for n in range(h)]
 
 
-def createMatrix2(h, l):
+def create_empty_matrix(h, l):
     return [[0] * l for n in range(h)]
 
 
@@ -273,3 +272,9 @@ def distinct_prime_factors(x, prims=[]):
 
 def list_remove_duplicates(x):
     return list(set(x))
+
+
+def create_spiral_matrix(width=3):
+    return [[n for n in range(4+(width-2)*8+,(1+2*(width-1)), -1)] for i in range(width)]
+
+print(create_spiral_matrix(3))
