@@ -7,7 +7,11 @@ from datetime import datetime
 def sum_of_numbers(strt, end):
     return int(((end-strt+1)*(strt+end))/2)
 
-print(sum_of_numbers(-3, 4))
+def sum_of_numbers_in_steps(n, start=0, step=1):
+    return n*((start-1+(start-1+(n-1)*step))/2)+1
+
+#print(sum_of_numbers_in_steps(3, 5, 8))
+#print(sum_of_numbers(-3, 4))
 
 def properDivisors(x):
     ret = []
@@ -274,7 +278,130 @@ def list_remove_duplicates(x):
     return list(set(x))
 
 
-def create_spiral_matrix(width=3):
-    return [[n for n in range(4+(width-2)*8+,(1+2*(width-1)), -1)] for i in range(width)]
+def calc_diagonals_of_matrix(x):
+    # calc diagonals
+    size = len(x)
+    amount = 1
+    for n in range(0, int((size - 1) / 2)):
+        amount += x[n][n]
+        # print(F"+ {matr[n][n]}")
+        amount += x[(-1 * n) - 1][n]
+        # print(F"+ {matr[(-1*n)-1][n]}")
+        amount += x[n][(-1 * n) - 1]
+        # print(F"+ {matr[n][(-1*n)-1]}")
+        amount += x[(-1 * n) - 1][(-1 * n) - 1]
+        # print(F"+ {matr[(-1*n)-1][(-1*n)-1]}")
+        # print("------")
+    return amount
 
-print(create_spiral_matrix(3))
+
+def create_spiral_matrix_rb(maxS=3):
+    matr = [[1]]
+    size = 1
+    posX = 0
+    posY = 0
+    dir = ""
+    print(maxS*maxS)
+    for n in range(1, (maxS*maxS)+1):
+        add = (size - 1) / 2
+        if n > math.pow(size, 2):
+            size += 2
+            if size > maxS:
+                size -= 2
+                break
+            for i in matr:
+                i.insert(0, 0)
+                i.append(0)
+            matr.insert(0, emptyList(size))
+            matr.append(emptyList(size))
+            # printMatr(matr)
+            add = (size - 1) / 2
+            # print(add)
+            posX += 1
+            matr[int(posY + add)][int(posX + add)] = n
+            dir = "south"
+            # printMatr(matr)
+            continue
+        if posX > 0 and abs(posX) * 2 + 1 == size:  # rechts unten
+            if posY > 0 and abs(posY) * 2 + 1 == size:
+                dir = "west"
+        if posX < 0 and abs(posX) * 2 + 1 == size:  # links unten
+            if posY > 0 and abs(posY) * 2 + 1 == size:
+                dir = "north"
+        if posX < 0 and abs(posX) * 2 + 1 == size:  # links oben
+            if posY < 0 and abs(posY) * 2 + 1 == size:
+                dir = "east"
+        if dir == "south":
+            posY += 1
+            matr[int(posY + add)][int(posX + add)] = n
+            # printMatr(matr)
+        if dir == "west":
+            posX -= 1
+            matr[int(posY + add)][int(posX + add)] = n
+            # printMatr(matr)
+        if dir == "north":
+            posY -= 1
+            matr[int(posY + add)][int(posX + add)] = n
+            # printMatr(matr)
+        if dir == "east":
+            posX += 1
+            matr[int(posY + add)][int(posX + add)] = n
+            # printMatr(matr)
+        # printMatr(matr)
+    return matr
+
+
+def create_spiral_matrix_rt(maxS=3):
+    matr = [[1]]
+    size = 1
+    posX = 0
+    posY = 0
+    dir = ""
+    print(maxS * maxS)
+    for n in range(1, (maxS * maxS) + 1):
+        add = (size - 1) / 2
+        if n > math.pow(size, 2):
+            size += 2
+            if size > maxS:
+                size -= 2
+                break
+            for i in matr:
+                i.insert(0, 0)
+                i.append(0)
+            matr.insert(0, emptyList(size))
+            matr.append(emptyList(size))
+            # printMatr(matr)
+            add = (size - 1) / 2
+            # print(add)
+            posX += 1
+            matr[int(posY + add)][int(posX + add)] = n
+            dir = "south"
+            # printMatr(matr)
+            continue
+        if posX > 0 and abs(posX) * 2 + 1 == size:  # rechts unten
+            if posY > 0 and abs(posY) * 2 + 1 == size:
+                dir = "west"
+        if posX < 0 and abs(posX) * 2 + 1 == size:  # links unten
+            if posY > 0 and abs(posY) * 2 + 1 == size:
+                dir = "north"
+        if posX < 0 and abs(posX) * 2 + 1 == size:  # links oben
+            if posY < 0 and abs(posY) * 2 + 1 == size:
+                dir = "east"
+        if dir == "south":
+            posY += 1
+            matr[int(posY + add)][int(posX + add)] = n
+            # printMatr(matr)
+        if dir == "west":
+            posX -= 1
+            matr[int(posY + add)][int(posX + add)] = n
+            # printMatr(matr)
+        if dir == "north":
+            posY -= 1
+            matr[int(posY + add)][int(posX + add)] = n
+            # printMatr(matr)
+        if dir == "east":
+            posX += 1
+            matr[int(posY + add)][int(posX + add)] = n
+            # printMatr(matr)
+        # printMatr(matr)
+    return matr
