@@ -278,6 +278,31 @@ def list_remove_duplicates(x):
     return list(set(x))
 
 
+def printMatr(matr):
+    for yL in matr:
+        print(yL)
+    print("------")
+    return
+
+
+def get_diagonals_of_matrix(x, diag=[], rings=1):
+    size = len(x)
+    if not diag:
+        for n in range(0, int((size - 1) / 2)):
+            diag.append(x[n][n])
+            diag.append(x[(-1 * n) - 1][n])
+            diag.append(x[n][(-1 * n) - 1])
+            diag.append(x[(-1 * n) - 1][(-1 * n) - 1])
+        return diag
+    else:
+        for n in range(0, rings):
+            diag.append(x[n][n])
+            diag.append(x[(-1 * n) - 1][n])
+            diag.append(x[n][(-1 * n) - 1])
+            diag.append(x[(-1 * n) - 1][(-1 * n) - 1])
+        return diag
+
+
 def calc_diagonals_of_matrix(x):
     # calc diagonals
     size = len(x)
@@ -357,36 +382,39 @@ def create_spiral_matrix_rt(maxS=3):
     posX = 0
     posY = 0
     dir = ""
-    print(maxS * maxS)
-    for n in range(1, (maxS * maxS) + 1):
+    #print(maxS * maxS)
+    for n in range(1, (maxS * maxS) + 1):  #für jede zahl die vorkommt
         add = (size - 1) / 2
-        if n > math.pow(size, 2):
-            size += 2
-            if size > maxS:
-                size -= 2
-                break
-            for i in matr:
+        if n > math.pow(size, 2):  #wenn größer als aktuelle matrix
+            size += 2  #erhöhe größe
+            #if size > maxS:
+            #    size -= 2
+            #    break
+            for i in matr:  #vorne und hinten 0 hinzufügen in jeder list / erweitern
                 i.insert(0, 0)
                 i.append(0)
-            matr.insert(0, emptyList(size))
+            matr.insert(0, emptyList(size)) #erweitern/neue listen adden
             matr.append(emptyList(size))
             # printMatr(matr)
             add = (size - 1) / 2
             # print(add)
             posX += 1
             matr[int(posY + add)][int(posX + add)] = n
-            dir = "south"
-            # printMatr(matr)
+            #print(F"y:{posY}+{add}][x:{posX}+{add}")
+            dir = "north"
+            #printMatr(matr)    #visualize creation
             continue
-        if posX > 0 and abs(posX) * 2 + 1 == size:  # rechts unten
-            if posY > 0 and abs(posY) * 2 + 1 == size:
+        #print("size", size)
+        if posX > 0 and abs(posX) * 2 + 1 == size:  # rechts
+            if posY < 0 and abs(posY) * 2 + 1 == size:  #oben
                 dir = "west"
-        if posX < 0 and abs(posX) * 2 + 1 == size:  # links unten
-            if posY > 0 and abs(posY) * 2 + 1 == size:
-                dir = "north"
-        if posX < 0 and abs(posX) * 2 + 1 == size:  # links oben
-            if posY < 0 and abs(posY) * 2 + 1 == size:
+                #print("west")
+        if posX < 0 and abs(posX) * 2 + 1 == size:  # links
+            if posY > 0 and abs(posY) * 2 + 1 == size:  #unten
                 dir = "east"
+        if posX < 0 and abs(posX) * 2 + 1 == size:  # links
+            if posY < 0 and abs(posY) * 2 + 1 == size:  #oben
+                dir = "south"
         if dir == "south":
             posY += 1
             matr[int(posY + add)][int(posX + add)] = n
@@ -397,11 +425,71 @@ def create_spiral_matrix_rt(maxS=3):
             # printMatr(matr)
         if dir == "north":
             posY -= 1
+            #print(F"y{posY}+{add}][x{posX}+{add}")
             matr[int(posY + add)][int(posX + add)] = n
             # printMatr(matr)
         if dir == "east":
             posX += 1
             matr[int(posY + add)][int(posX + add)] = n
             # printMatr(matr)
-        # printMatr(matr)
+        #printMatr(matr)            #visualize creation
+    return matr
+
+def create_spiral_matrix_rt_add_ring(matr=[[1]], addi=1):
+    size = len(matr)
+    posX = (size - 1) / 2
+    posY = (size - 1) / 2
+    dir = ""
+    #print(maxS * maxS)
+    for n in range(matr[len(matr)-1][len(matr)-1]+1, ((len(matr)+2*addi)*(len(matr)+2*addi)) + 1):#für jede zahl die vorkommt
+        #print(n, size)
+        add = (size - 1) / 2
+        if n > math.pow(size, 2):  #wenn größer als aktuelle matrix
+            size += 2  #erhöhe größe
+            #if size > maxS:
+            #    size -= 2
+            #    break
+            for i in matr:  #vorne und hinten 0 hinzufügen in jeder list / erweitern
+                i.insert(0, 0)
+                i.append(0)
+            matr.insert(0, emptyList(size)) #erweitern/neue listen adden
+            matr.append(emptyList(size))
+            # printMatr(matr)
+            add = (size - 1) / 2
+            # print(add)
+            posX += 1
+            matr[int(posY + add)][int(posX + add)] = n
+            #print(F"[y:{posY}+{add}][x:{posX}+{add}]={n}")
+            dir = "north"
+            #printMatr(matr)    #visualize creation
+            continue
+        #print("size", size)
+        if posX > 0 and abs(posX) * 2 + 1 == size:  # rechts
+            if posY < 0 and abs(posY) * 2 + 1 == size:  #oben
+                dir = "west"
+                #print("west")
+        if posX < 0 and abs(posX) * 2 + 1 == size:  # links
+            if posY > 0 and abs(posY) * 2 + 1 == size:  #unten
+                dir = "east"
+        if posX < 0 and abs(posX) * 2 + 1 == size:  # links
+            if posY < 0 and abs(posY) * 2 + 1 == size:  #oben
+                dir = "south"
+        if dir == "south":
+            posY += 1
+            matr[int(posY + add)][int(posX + add)] = n
+            # printMatr(matr)
+        if dir == "west":
+            posX -= 1
+            matr[int(posY + add)][int(posX + add)] = n
+            # printMatr(matr)
+        if dir == "north":
+            posY -= 1
+            #print(F"y{posY}+{add}][x{posX}+{add}")
+            matr[int(posY + add)][int(posX + add)] = n
+            # printMatr(matr)
+        if dir == "east":
+            posX += 1
+            matr[int(posY + add)][int(posX + add)] = n
+            # printMatr(matr)
+        #printMatr(matr)            #visualize creation
     return matr
