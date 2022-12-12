@@ -5,6 +5,7 @@ from getpass import getpass
 from datetime import datetime
 
 
+
 def sum_of_numbers(strt, end):
     return int(((end-strt+1)*(strt+end))/2)
 
@@ -494,5 +495,4 @@ def create_spiral_matrix_rt_add_ring(matr=[[1]], addi=1):
             # printMatr(matr)
         #printMatr(matr)            #visualize creation
     return matr
-
 
