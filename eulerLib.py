@@ -1,4 +1,5 @@
 import math
+from itertools import permutations
 from math import *
 import random
 from getpass import getpass
@@ -133,13 +134,12 @@ def stringToIntList(x):
 
 
 def isPrim(x):
-    state = False
     for m in range(2, int(x / 2) + 1):
         if x % m == 0:
             return False
     return True
 
-
+'''
 def givePrimes(rang, start=0):
     if start > rang:
         raise ValueError("Invalid range")
@@ -158,7 +158,18 @@ def givePrimes(rang, start=0):
         if isPrim(n):
             prim.append(n)
     return prim
-
+'''
+def givePrimes(n):
+    """ Input n>=6, Returns a list of primes, 2 <= p < n """
+    n +=1
+    n, correction = n - n % 6 + 6, 2 - (n % 6 > 1)
+    sieve = [True] * (n // 3)
+    for i in range(1, int(n ** 0.5) // 3 + 1):
+        if sieve[i]:
+            k = 3 * i + 1 | 1
+            sieve[k * k // 3::2 * k] = [False] * ((n // 6 - k * k // 6 - 1) // k + 1)
+            sieve[k * (k - 2 * (i & 1) + 4) // 3::2 * k] = [False] * ((n // 6 - k * (k - 2 * (i & 1) + 4) // 6 - 1) // k + 1)
+    return [2, 3] + [3 * i + 1 | 1 for i in range(1, n // 3 - correction) if sieve[i]]
 
 def int_to_bin(x, l=8):
     return f'{x:0{l}b}'
@@ -496,3 +507,20 @@ def create_spiral_matrix_rt_add_ring(matr=[[1]], addi=1):
         #printMatr(matr)            #visualize creation
     return matr
 
+
+def permustations(x):
+    """
+    hello world
+
+    :param x: integer
+    :return: int
+    """
+    return permutations(x)
+
+def main():
+    print(isprim2(12))
+
+if __name__ == '__main__':
+    time = datetime.now()
+    main()
+    print(datetime.now() - time)
