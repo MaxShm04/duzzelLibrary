@@ -518,7 +518,7 @@ def permustations(x):
     return permutations(x)
 
 def main():
-    print(isprim2(12))
+    print()
 
 if __name__ == '__main__':
     time = datetime.now()
