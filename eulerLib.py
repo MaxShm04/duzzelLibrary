@@ -3,18 +3,19 @@ from itertools import permutations
 from math import *
 import random
 from getpass import getpass
-from datetime import datetime
-
+from datetime import datetime, timedelta
 
 
 def sum_of_numbers(strt, end):
-    return int(((end-strt+1)*(strt+end))/2)
+    return int(((end - strt + 1) * (strt + end)) / 2)
+
 
 def sum_of_numbers_in_steps(n, start=0, step=1):
-    return n*((start-1+(start-1+(n-1)*step))/2)+1
+    return n * ((start - 1 + (start - 1 + (n - 1) * step)) / 2) + 1
 
-#print(sum_of_numbers_in_steps(3, 5, 8))
-#print(sum_of_numbers(-3, 4))
+
+# print(sum_of_numbers_in_steps(3, 5, 8))
+# print(sum_of_numbers(-3, 4))
 
 def properDivisors(x):
     ret = []
@@ -139,6 +140,7 @@ def isPrim(x):
             return False
     return True
 
+
 '''
 def givePrimes(rang, start=0):
     if start > rang:
@@ -159,17 +161,21 @@ def givePrimes(rang, start=0):
             prim.append(n)
     return prim
 '''
+
+
 def givePrimes(n):
     """ Input n>=6, Returns a list of primes, 2 <= p < n """
-    n +=1
+    n += 1
     n, correction = n - n % 6 + 6, 2 - (n % 6 > 1)
     sieve = [True] * (n // 3)
     for i in range(1, int(n ** 0.5) // 3 + 1):
         if sieve[i]:
             k = 3 * i + 1 | 1
             sieve[k * k // 3::2 * k] = [False] * ((n // 6 - k * k // 6 - 1) // k + 1)
-            sieve[k * (k - 2 * (i & 1) + 4) // 3::2 * k] = [False] * ((n // 6 - k * (k - 2 * (i & 1) + 4) // 6 - 1) // k + 1)
+            sieve[k * (k - 2 * (i & 1) + 4) // 3::2 * k] = [False] * (
+                        (n // 6 - k * (k - 2 * (i & 1) + 4) // 6 - 1) // k + 1)
     return [2, 3] + [3 * i + 1 | 1 for i in range(1, n // 3 - correction) if sieve[i]]
+
 
 def int_to_bin(x, l=8):
     return f'{x:0{l}b}'
@@ -275,7 +281,7 @@ def distinct_prime_factors(x, prims=[]):
         s = 0
     else:
         s = prims[-1]
-        if prims.count(0)>0:
+        if prims.count(0) > 0:
             prims.remove(0)
     prim = prims + givePrimes(int(x), start=s)
     while x > 1:
@@ -339,8 +345,8 @@ def create_spiral_matrix_rb(maxS=3):
     posX = 0
     posY = 0
     dir = ""
-    print(maxS*maxS)
-    for n in range(1, (maxS*maxS)+1):
+    print(maxS * maxS)
+    for n in range(1, (maxS * maxS) + 1):
         add = (size - 1) / 2
         if n > math.pow(size, 2):
             size += 2
@@ -395,38 +401,38 @@ def create_spiral_matrix_rt(maxS=3):
     posX = 0
     posY = 0
     dir = ""
-    #print(maxS * maxS)
-    for n in range(1, (maxS * maxS) + 1):  #für jede zahl die vorkommt
+    # print(maxS * maxS)
+    for n in range(1, (maxS * maxS) + 1):  # für jede zahl die vorkommt
         add = (size - 1) / 2
-        if n > math.pow(size, 2):  #wenn größer als aktuelle matrix
-            size += 2  #erhöhe größe
-            #if size > maxS:
+        if n > math.pow(size, 2):  # wenn größer als aktuelle matrix
+            size += 2  # erhöhe größe
+            # if size > maxS:
             #    size -= 2
             #    break
-            for i in matr:  #vorne und hinten 0 hinzufügen in jeder list / erweitern
+            for i in matr:  # vorne und hinten 0 hinzufügen in jeder list / erweitern
                 i.insert(0, 0)
                 i.append(0)
-            matr.insert(0, emptyList(size)) #erweitern/neue listen adden
+            matr.insert(0, emptyList(size))  # erweitern/neue listen adden
             matr.append(emptyList(size))
             # printMatr(matr)
             add = (size - 1) / 2
             # print(add)
             posX += 1
             matr[int(posY + add)][int(posX + add)] = n
-            #print(F"y:{posY}+{add}][x:{posX}+{add}")
+            # print(F"y:{posY}+{add}][x:{posX}+{add}")
             dir = "north"
-            #printMatr(matr)    #visualize creation
+            # printMatr(matr)    #visualize creation
             continue
-        #print("size", size)
+        # print("size", size)
         if posX > 0 and abs(posX) * 2 + 1 == size:  # rechts
-            if posY < 0 and abs(posY) * 2 + 1 == size:  #oben
+            if posY < 0 and abs(posY) * 2 + 1 == size:  # oben
                 dir = "west"
-                #print("west")
+                # print("west")
         if posX < 0 and abs(posX) * 2 + 1 == size:  # links
-            if posY > 0 and abs(posY) * 2 + 1 == size:  #unten
+            if posY > 0 and abs(posY) * 2 + 1 == size:  # unten
                 dir = "east"
         if posX < 0 and abs(posX) * 2 + 1 == size:  # links
-            if posY < 0 and abs(posY) * 2 + 1 == size:  #oben
+            if posY < 0 and abs(posY) * 2 + 1 == size:  # oben
                 dir = "south"
         if dir == "south":
             posY += 1
@@ -438,54 +444,56 @@ def create_spiral_matrix_rt(maxS=3):
             # printMatr(matr)
         if dir == "north":
             posY -= 1
-            #print(F"y{posY}+{add}][x{posX}+{add}")
+            # print(F"y{posY}+{add}][x{posX}+{add}")
             matr[int(posY + add)][int(posX + add)] = n
             # printMatr(matr)
         if dir == "east":
             posX += 1
             matr[int(posY + add)][int(posX + add)] = n
             # printMatr(matr)
-        #printMatr(matr)            #visualize creation
+        # printMatr(matr)            #visualize creation
     return matr
+
 
 def create_spiral_matrix_rt_add_ring(matr=[[1]], addi=1):
     size = len(matr)
     posX = (size - 1) / 2
     posY = (size - 1) / 2
     dir = ""
-    #print(maxS * maxS)
-    for n in range(matr[len(matr)-1][len(matr)-1]+1, ((len(matr)+2*addi)*(len(matr)+2*addi)) + 1):#für jede zahl die vorkommt
-        #print(n, size)
+    # print(maxS * maxS)
+    for n in range(matr[len(matr) - 1][len(matr) - 1] + 1,
+                   ((len(matr) + 2 * addi) * (len(matr) + 2 * addi)) + 1):  # für jede zahl die vorkommt
+        # print(n, size)
         add = (size - 1) / 2
-        if n > math.pow(size, 2):  #wenn größer als aktuelle matrix
-            size += 2  #erhöhe größe
-            #if size > maxS:
+        if n > math.pow(size, 2):  # wenn größer als aktuelle matrix
+            size += 2  # erhöhe größe
+            # if size > maxS:
             #    size -= 2
             #    break
-            for i in matr:  #vorne und hinten 0 hinzufügen in jeder list / erweitern
+            for i in matr:  # vorne und hinten 0 hinzufügen in jeder list / erweitern
                 i.insert(0, 0)
                 i.append(0)
-            matr.insert(0, emptyList(size)) #erweitern/neue listen adden
+            matr.insert(0, emptyList(size))  # erweitern/neue listen adden
             matr.append(emptyList(size))
             # printMatr(matr)
             add = (size - 1) / 2
             # print(add)
             posX += 1
             matr[int(posY + add)][int(posX + add)] = n
-            #print(F"[y:{posY}+{add}][x:{posX}+{add}]={n}")
+            # print(F"[y:{posY}+{add}][x:{posX}+{add}]={n}")
             dir = "north"
-            #printMatr(matr)    #visualize creation
+            # printMatr(matr)    #visualize creation
             continue
-        #print("size", size)
+        # print("size", size)
         if posX > 0 and abs(posX) * 2 + 1 == size:  # rechts
-            if posY < 0 and abs(posY) * 2 + 1 == size:  #oben
+            if posY < 0 and abs(posY) * 2 + 1 == size:  # oben
                 dir = "west"
-                #print("west")
+                # print("west")
         if posX < 0 and abs(posX) * 2 + 1 == size:  # links
-            if posY > 0 and abs(posY) * 2 + 1 == size:  #unten
+            if posY > 0 and abs(posY) * 2 + 1 == size:  # unten
                 dir = "east"
         if posX < 0 and abs(posX) * 2 + 1 == size:  # links
-            if posY < 0 and abs(posY) * 2 + 1 == size:  #oben
+            if posY < 0 and abs(posY) * 2 + 1 == size:  # oben
                 dir = "south"
         if dir == "south":
             posY += 1
@@ -497,14 +505,14 @@ def create_spiral_matrix_rt_add_ring(matr=[[1]], addi=1):
             # printMatr(matr)
         if dir == "north":
             posY -= 1
-            #print(F"y{posY}+{add}][x{posX}+{add}")
+            # print(F"y{posY}+{add}][x{posX}+{add}")
             matr[int(posY + add)][int(posX + add)] = n
             # printMatr(matr)
         if dir == "east":
             posX += 1
             matr[int(posY + add)][int(posX + add)] = n
             # printMatr(matr)
-        #printMatr(matr)            #visualize creation
+        # printMatr(matr)            #visualize creation
     return matr
 
 
@@ -522,8 +530,11 @@ def has_duplicate(x):
     if len(x) == len(set(x)):
         return False
     return True
+
+
 def main():
     print(has_duplicate([0, 1, 0]))
+
 
 if __name__ == '__main__':
     time = datetime.now()
