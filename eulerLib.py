@@ -517,8 +517,13 @@ def permustations(x):
     """
     return permutations(x)
 
+
+def has_duplicate(x):
+    if len(x) == len(set(x)):
+        return False
+    return True
 def main():
-    print()
+    print(has_duplicate([0, 1, 0]))
 
 if __name__ == '__main__':
     time = datetime.now()
