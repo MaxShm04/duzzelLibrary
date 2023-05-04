@@ -531,9 +531,14 @@ def has_duplicate(x):
         return False
     return True
 
+def checksum(i):
+    out = 0
+    for n in str(i):
+        out += int(n)
+    return out
 
 def main():
-    print(has_duplicate([0, 1, 0]))
+    print(checksum(1234))
 
 
 if __name__ == '__main__':
